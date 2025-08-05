@@ -1,0 +1,11 @@
+student_id,name,math_score,science_score,english_score,attendance,study_hours
+1,Alice Johnson,85,92,78,95,25
+2,Bob Smith,72,68,85,88,18
+3,Carol Davis,95,89,92,97,30
+4,David Wilson,68,75,70,82,15
+5,Emma Brown,88,94,87,93,28
+6,Frank Miller,75,72,80,85,20
+7,Grace Lee,92,88,95,96,32
+8,Henry Taylor,65,70,68,78,12
+9,Ivy Chen,89,91,86,94,26
+10,Jack Anderson,78,82,75,89,22
