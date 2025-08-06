@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  TrendingUp, 
-  Users, 
-  BookOpen, 
+import {
+  TrendingUp,
+  Users,
+  BookOpen,
   Brain,
   ArrowUp,
   ArrowDown
 } from 'lucide-react'
-import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
   ResponsiveContainer,
   BarChart,
   Bar,
@@ -65,7 +65,7 @@ const Dashboard = () => {
 
       // Try to generate AI insights, but fallback to default message if it fails
       let insights = `Welcome to your personalized analytics dashboard, ${user?.name}! Your data shows steady improvement with ML predictions indicating continued growth. Keep up the excellent work!`
-      
+
       try {
         const aiInsights = await geminiService.generateSummary({
           performance: mockPerformanceData,
@@ -119,27 +119,27 @@ const Dashboard = () => {
     }
   }
 
-  const StatCard = ({ title, value, change, icon: Icon, color }) => (
+  const StatCard = ({ title, value, change, icon: Icon, gradient }) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="card"
+      whileHover={{ scale: 1.05, y: -5 }}
+      className="card group cursor-pointer"
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{title}</p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{value}</p>
+          <p className="text-sm font-medium text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{title}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{value}</p>
           {change && (
-            <div className={`flex items-center mt-2 text-sm ${
-              change > 0 ? 'text-green-600' : 'text-red-600'
-            }`}>
+            <div className={`flex items-center mt-3 text-sm font-semibold ${change > 0 ? 'text-green-400' : 'text-red-400'
+              }`}>
               {change > 0 ? <ArrowUp className="w-4 h-4 mr-1" /> : <ArrowDown className="w-4 h-4 mr-1" />}
               {Math.abs(change)}%
             </div>
           )}
         </div>
-        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${color}`}>
-          <Icon className="w-6 h-6 text-white" />
+        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+          <Icon className="w-8 h-8 text-white" />
         </div>
       </div>
     </motion.div>
@@ -161,12 +161,17 @@ const Dashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Welcome back, {user?.name}! 👋
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300 mt-2">
-          Here's your data analytics overview and AI-powered insights from your recent uploads.
-        </p>
+        <div className="flex items-center space-x-4 mb-4">
+          <span className="text-5xl">🚀</span>
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+              Welcome back, {user?.name}!
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300 text-lg mt-2">
+              Here's your data analytics overview and AI-powered insights ✨
+            </p>
+          </div>
+        </div>
       </motion.div>
 
       {/* Stats Grid */}
@@ -175,28 +180,28 @@ const Dashboard = () => {
           title="Data Points Analyzed"
           value={dashboardData.stats.totalStudents?.toLocaleString() || '12,847'}
           icon={Users}
-          color="bg-blue-500"
+          gradient="bg-gradient-to-r from-blue-500 to-cyan-500"
         />
         <StatCard
           title="Analysis Accuracy"
           value={`${dashboardData.stats.averageScore || 94.7}%`}
           change={dashboardData.stats.improvement || 8.3}
           icon={TrendingUp}
-          color="bg-green-500"
+          gradient="bg-gradient-to-r from-green-500 to-emerald-500"
         />
         <StatCard
           title="Reports Generated"
           value="156"
           change={12.4}
           icon={BookOpen}
-          color="bg-purple-500"
+          gradient="bg-gradient-to-r from-purple-500 to-pink-500"
         />
         <StatCard
           title="Prediction Confidence"
           value={`${dashboardData.stats.predictions || 91}%`}
           change={5.1}
           icon={Brain}
-          color="bg-orange-500"
+          gradient="bg-gradient-to-r from-orange-500 to-red-500"
         />
       </div>
 
@@ -206,25 +211,31 @@ const Dashboard = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="card overflow-hidden"
+          whileHover={{ scale: 1.02 }}
+          className="card overflow-hidden group"
         >
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Data Trends & ML Predictions
-          </h3>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:gradient-text transition-all duration-300">
+              Data Trends & ML Predictions
+            </h3>
+          </div>
           <div className="w-full h-80">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={dashboardData.performanceData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
-                <XAxis 
-                  dataKey="month" 
+                <XAxis
+                  dataKey="month"
                   stroke="#6B7280"
                   fontSize={12}
                 />
-                <YAxis 
+                <YAxis
                   stroke="#6B7280"
                   fontSize={12}
                 />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: '#1F2937',
                     border: 'none',
@@ -232,18 +243,18 @@ const Dashboard = () => {
                     color: '#F9FAFB'
                   }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="score" 
-                  stroke="#3B82F6" 
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  stroke="#3B82F6"
                   strokeWidth={3}
                   name="Actual Data"
                   dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="prediction" 
-                  stroke="#10B981" 
+                <Line
+                  type="monotone"
+                  dataKey="prediction"
+                  stroke="#10B981"
                   strokeWidth={3}
                   strokeDasharray="8 8"
                   name="ML Prediction"
@@ -258,11 +269,17 @@ const Dashboard = () => {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="card overflow-hidden"
+          whileHover={{ scale: 1.02 }}
+          className="card overflow-hidden group"
         >
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            Data Distribution Analysis
-          </h3>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+              <PieChart className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:gradient-text transition-all duration-300">
+              Data Distribution Analysis
+            </h3>
+          </div>
           <div className="w-full h-80">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
@@ -281,7 +298,7 @@ const Dashboard = () => {
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
                     backgroundColor: '#1F2937',
                     border: 'none',
@@ -299,16 +316,22 @@ const Dashboard = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="card"
+        whileHover={{ scale: 1.02 }}
+        className="card group"
       >
-        <div className="flex items-center mb-4">
-          <Brain className="w-6 h-6 text-primary-600 mr-2" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            AI-Generated Insights
-          </h3>
+        <div className="flex items-center space-x-3 mb-6">
+          <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+            <Brain className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:gradient-text transition-all duration-300">
+              AI-Generated Insights
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">Powered by advanced machine learning 🤖</p>
+          </div>
         </div>
-        <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4">
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm rounded-2xl p-6 border border-purple-500/20">
+          <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-lg">
             {dashboardData.insights}
           </p>
         </div>
@@ -320,41 +343,50 @@ const Dashboard = () => {
         animate={{ opacity: 1, y: 0 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        <div className="card hover:shadow-lg transition-shadow cursor-pointer">
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          className="card hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+        >
           <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-              <TrendingUp className="w-6 h-6 text-blue-600" />
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <TrendingUp className="w-8 h-8 text-white" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Upload New Data</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Upload academic data for ML analysis
+            <h4 className="font-bold text-gray-900 dark:text-white mb-2 text-lg group-hover:gradient-text transition-all duration-300">Upload New Data</h4>
+            <p className="text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+              Upload any data for AI-powered analysis 📊
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="card hover:shadow-lg transition-shadow cursor-pointer">
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          className="card hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+        >
           <div className="text-center">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-              <Brain className="w-6 h-6 text-green-600" />
+            <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <Brain className="w-8 h-8 text-white" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">AI Assistant</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Chat with AI for academic help
+            <h4 className="font-bold text-gray-900 dark:text-white mb-2 text-lg group-hover:gradient-text transition-all duration-300">AI Assistant</h4>
+            <p className="text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+              Chat with AI for insights and help 🤖
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="card hover:shadow-lg transition-shadow cursor-pointer">
+        <motion.div
+          whileHover={{ scale: 1.05, y: -5 }}
+          className="card hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+        >
           <div className="text-center">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-              <BookOpen className="w-6 h-6 text-purple-600" />
+            <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <BookOpen className="w-8 h-8 text-white" />
             </div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Study Plan</h4>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              Generate personalized study plans
+            <h4 className="font-bold text-gray-900 dark:text-white mb-2 text-lg group-hover:gradient-text transition-all duration-300">Generate Reports</h4>
+            <p className="text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+              Create comprehensive analysis reports 📋
             </p>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   )

@@ -33,7 +33,11 @@ function App() {
   return (
     <div className={theme}>
       <Router>
-        <div className="h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+        <div className={`h-screen transition-colors duration-200 ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' 
+            : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
+        }`}>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />

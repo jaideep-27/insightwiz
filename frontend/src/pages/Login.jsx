@@ -38,27 +38,42 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4">
+    <div className={`min-h-screen flex items-center justify-center px-4 relative overflow-hidden ${
+      'dark' === 'dark' 
+        ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' 
+        : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
+    }`}>
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -inset-10 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-md w-full"
+        className="max-w-md w-full relative z-10"
       >
-        <div className="card">
+        <div className="card-solid">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <BarChart3 className="w-8 h-8 text-white" />
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+              <BarChart3 className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome Back</h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <span className="text-3xl">👋</span>
+              <h2 className="text-4xl font-bold text-white">Welcome Back</h2>
+            </div>
+            <p className="text-gray-300 text-lg">
               Sign in to your InsightWhiz account
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-semibold text-gray-200 mb-3">
                 Email Address
               </label>
               <input
@@ -73,7 +88,7 @@ const Login = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-semibold text-gray-200 mb-3">
                 Password
               </label>
               <div className="relative">
@@ -82,14 +97,14 @@ const Login = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="input-field pr-10"
+                  className="input-field pr-12"
                   placeholder="Enter your password"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-white transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -105,14 +120,14 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-gray-600 dark:text-gray-300">
+          <div className="mt-8 text-center">
+            <p className="text-gray-300">
               Don't have an account?{' '}
               <Link
                 to="/register"
-                className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+                className="text-purple-400 hover:text-pink-400 font-semibold transition-colors"
               >
-                Sign up
+                Sign up here 🚀
               </Link>
             </p>
           </div>
@@ -121,9 +136,10 @@ const Login = () => {
         <div className="text-center mt-8">
           <Link
             to="/"
-            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
+            className="text-gray-400 hover:text-white transition-colors flex items-center justify-center space-x-2"
           >
-            ← Back to home
+            <span>←</span>
+            <span>Back to home</span>
           </Link>
         </div>
       </motion.div>

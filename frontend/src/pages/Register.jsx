@@ -51,21 +51,36 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4">
+    <div className={`min-h-screen flex items-center justify-center px-4 relative overflow-hidden ${
+      'dark' === 'dark' 
+        ? 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' 
+        : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
+    }`}>
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -inset-10 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-2000"></div>
+        </div>
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-md w-full"
+        className="max-w-md w-full relative z-10"
       >
-        <div className="card">
+        <div className="card-solid">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <BarChart3 className="w-8 h-8 text-white" />
+            <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl">
+              <BarChart3 className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Create Account</h2>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
-              Join InsightWhiz and transform your academic journey
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <span className="text-3xl">🚀</span>
+              <h2 className="text-4xl font-bold text-white">Join InsightWhiz</h2>
+            </div>
+            <p className="text-gray-300 text-lg">
+              Transform your data into powerful insights
             </p>
           </div>
 
