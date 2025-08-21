@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import wizzyLogo from '../assets/wizzy.png'
 import { 
   Home, 
   Upload, 
@@ -11,7 +12,8 @@ import {
   Sun, 
   Moon,
   LogOut,
-  BarChart3
+  BarChart3,
+  History
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
@@ -25,6 +27,7 @@ const DashboardLayout = ({ children }) => {
   const navigation = [
     { name: 'Analytics Dashboard', href: '/dashboard', icon: Home },
     { name: 'Data Upload', href: '/upload', icon: Upload },
+    { name: 'History', href: '/history', icon: History },
     { name: 'AI Insights', href: '/ai-tools', icon: Brain },
     { name: 'Account Settings', href: '/profile', icon: User },
   ]
@@ -59,10 +62,8 @@ const DashboardLayout = ({ children }) => {
           theme === 'dark' ? 'border-purple-500/20' : 'border-gray-200/50'
         }`}>
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <BarChart3 className="w-6 h-6 text-white" />
-            </div>
-            <h1 className="text-2xl font-bold gradient-text">InsightWhiz</h1>
+            <img src={wizzyLogo} alt="InsightWiz" className="w-10 h-10 rounded-2xl shadow-lg" />
+            <h1 className="text-2xl font-bold gradient-text">InsightWiz</h1>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}

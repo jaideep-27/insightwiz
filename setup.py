@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script for InsightWhiz ML Backend
+Setup script for InsightWiz ML Backend
 """
 
 import subprocess

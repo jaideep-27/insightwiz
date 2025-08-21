@@ -8,7 +8,7 @@ async function createTestUser() {
     console.log('Connected to MongoDB')
 
     // Check if test user already exists
-    const existingUser = await User.findOne({ email: 'test@insightwhiz.com' })
+    const existingUser = await User.findOne({ email: 'test@insightwiz.com' })
     if (existingUser) {
       console.log('Test user already exists!')
       return
@@ -17,13 +17,13 @@ async function createTestUser() {
     // Create test user
     const testUser = new User({
       name: 'Test User',
-      email: 'test@insightwhiz.com',
+      email: 'test@insightwiz.com',
       password: 'password123'
     })
 
     await testUser.save()
     console.log('✅ Test user created successfully!')
-    console.log('Email: test@insightwhiz.com')
+    console.log('Email: test@insightwiz.com')
     console.log('Password: password123')
 
   } catch (error) {

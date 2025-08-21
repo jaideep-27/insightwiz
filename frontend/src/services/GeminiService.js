@@ -11,10 +11,11 @@ class GeminiService {
     return response.data
   }
 
-  async chatWithAI(message, conversationHistory = []) {
+  async chatWithAI(message, conversationHistory = [], userContext = null) {
     const response = await axios.post(`${API_URL}/chat`, {
       message,
-      history: conversationHistory
+      history: conversationHistory,
+      userContext
     }, {
       headers: authService.getAuthHeader()
     })

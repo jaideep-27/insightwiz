@@ -1,4 +1,22 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate            <Route path="/upload" element={
+              user ? (
+                <DashboardLayout>
+                  <UploadData />
+                </DashboardLayout>
+              ) : (
+                <Navigate to="/login" />
+              )
+            } />
+            <Route path="/history" element={
+              user ? (
+                <DashboardLayout>
+                  <History />
+                </DashboardLayout>
+              ) : (
+                <Navigate to="/login" />
+              )
+            } />
+            <Route path="/ai-tools" element={eact-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { useAuth } from './context/AuthContext'
 import { useTheme } from './context/ThemeContext'

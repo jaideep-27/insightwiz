@@ -118,30 +118,30 @@ const Dashboard = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02, y: -2 }}
-      className="card group cursor-pointer relative overflow-hidden h-32" // Fixed height for uniformity
+      className="card group cursor-pointer relative overflow-hidden"
     >
       {/* Background gradient */}
       <div className={`absolute inset-0 opacity-5 ${gradient}`}></div>
       
-      <div className="relative flex items-center justify-between h-full">
-        <div className="flex-1 flex flex-col justify-center">
-          <div className="flex items-center space-x-3">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${gradient} shadow-lg flex-shrink-0`}>
-              <Icon className="w-6 h-6 text-white" />
+      <div className="relative flex items-center justify-between">
+        <div className="flex-1">
+          <div className="flex items-center space-x-2">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${gradient} shadow-lg`}>
+              <Icon className="w-5 h-5 text-white" />
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors truncate">
+            <div>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                 {title}
               </p>
               {subtitle && (
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {subtitle}
                 </p>
               )}
             </div>
           </div>
           
-          <div className="mt-3">
+          <div className="mt-4">
             <p className="text-2xl font-bold text-gray-900 dark:text-white">
               {typeof value === 'number' && value > 1000 ? (
                 <>
@@ -154,13 +154,13 @@ const Dashboard = () => {
             </p>
             
             {change !== undefined && change !== null && (
-              <div className={`flex items-center mt-1 text-xs font-semibold ${
+              <div className={`flex items-center mt-2 text-sm font-semibold ${
                 change > 0 ? 'text-green-600 dark:text-green-400' : 
                 change < 0 ? 'text-red-600 dark:text-red-400' : 
                 'text-gray-600 dark:text-gray-400'
               }`}>
-                {change > 0 && <ArrowUp className="w-3 h-3 mr-1" />}
-                {change < 0 && <ArrowDown className="w-3 h-3 mr-1" />}
+                {change > 0 && <ArrowUp className="w-4 h-4 mr-1" />}
+                {change < 0 && <ArrowDown className="w-4 h-4 mr-1" />}
                 {change !== 0 ? `${Math.abs(change)}% from last month` : 'No change'}
               </div>
             )}

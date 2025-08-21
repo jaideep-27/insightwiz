@@ -77,7 +77,7 @@ const Register = () => {
             </div>
             <div className="flex items-center justify-center space-x-2 mb-4">
               <span className="text-3xl">🚀</span>
-              <h2 className="text-4xl font-bold text-white">Join InsightWhiz</h2>
+              <h2 className="text-4xl font-bold text-white">Join InsightWiz</h2>
             </div>
             <p className="text-gray-300 text-lg">
               Transform your data into powerful insights

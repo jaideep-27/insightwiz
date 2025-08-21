@@ -1,10 +1,10 @@
-# InsightWhiz 🚀📊
+# InsightWiz 🚀📊
 
 **The Ultimate AI-Powered Data Analytics Platform**
 
-Transform any data into actionable insights with cutting-edge machine learning and AI technology. From business metrics to personal tracking - InsightWhiz analyzes it all.
+Transform any data into actionable insights with cutting-edge machine learning and AI technology. From business metrics to personal tracking - InsightWiz analyzes it all.
 
-![InsightWhiz Banner](https://via.placeholder.com/1200x400/3B82F6/FFFFFF?text=InsightWhiz+-+AI+Data+Analytics+Platform)
+![InsightWiz Banner](https://via.placeholder.com/1200x400/3B82F6/FFFFFF?text=InsightWiz+-+AI+Data+Analytics+Platform)
 
 ## 🌟 Features
 
@@ -50,8 +50,8 @@ Transform any data into actionable insights with cutting-edge machine learning a
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/insightwhiz.git
-cd insightwhiz
+git clone https://github.com/your-username/insightwiz.git
+cd insightwiz
 ```
 
 ### 2. Install Dependencies
@@ -73,7 +73,7 @@ Create `.env` files in the backend directory:
 
 ```bash
 # backend/.env
-MONGO_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/insightwhiz
+MONGO_URI=mongodb+srv://your-username:your-password@cluster.mongodb.net/insightwiz
 JWT_SECRET=your-super-secure-jwt-secret-key-here
 GEMINI_API_KEY=your-google-gemini-api-key
 PORT=5000
@@ -156,7 +156,7 @@ node scripts/createTestUser.js
 ```
 
 **Test Credentials:**
-- Email: `test@insightwhiz.com`
+- Email: `test@insightwiz.com`
 - Password: `password123`
 
 ### Database Setup
@@ -272,10 +272,10 @@ pip install -r requirements.txt
 
 ### Support
 
-- 📧 Email: support@insightwhiz.com
-- 💬 Discord: [Join our community](https://discord.gg/insightwhiz)
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/insightwhiz/issues)
+- 📧 Email: support@insightwiz.com
+- 💬 Discord: [Join our community](https://discord.gg/insightwiz)
+- 🐛 Issues: [GitHub Issues](https://github.com/your-username/insightwiz/issues)
 
 ---
 
-**Made with ❤️ by the InsightWhiz Team**
+**Made with ❤️ by the InsightWiz Team**

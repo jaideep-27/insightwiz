@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
   MessageCircle, 
@@ -7,10 +7,12 @@ import {
   Heart,
   Send,
   Bot,
-  User
+  User,
+  Database
 } from 'lucide-react'
 import { geminiService } from '../services/GeminiService'
 import { mlService } from '../services/MLService'
+import { analyticsService } from '../services/AnalyticsService'
 import toast from 'react-hot-toast'
 
 const AITools = () => {
@@ -18,6 +20,7 @@ const AITools = () => {
   const [chatMessages, setChatMessages] = useState([])
   const [chatInput, setChatInput] = useState('')
   const [chatLoading, setChatLoading] = useState(false)
+  const [userAnalytics, setUserAnalytics] = useState(null)
   const [projectForm, setProjectForm] = useState({
     subject: '',
     level: 'intermediate',
@@ -28,6 +31,22 @@ const AITools = () => {
   const [sentimentText, setSentimentText] = useState('')
   const [sentimentResult, setSentimentResult] = useState(null)
   const [sentimentLoading, setSentimentLoading] = useState(false)
+
+  // Load user's analysis history on component mount
+  useEffect(() => {
+    loadUserAnalytics()
+  }, [])
+
+  const loadUserAnalytics = async () => {
+    try {
+      const response = await analyticsService.getDashboardData()
+      if (response.success) {
+        setUserAnalytics(response.data)
+      }
+    } catch (error) {
+      console.error('Failed to load user analytics:', error)
+    }
+  }
 
   const tabs = [
     { id: 'chat', name: 'AI Chat', icon: MessageCircle },
@@ -46,7 +65,15 @@ const AITools = () => {
     setChatLoading(true)
 
     try {
-      const response = await geminiService.chatWithAI(chatInput, chatMessages)
+      // Include user context in the chat
+      const userContext = userAnalytics ? {
+        totalAnalyses: userAnalytics.stats.totalScans,
+        recentActivity: userAnalytics.recentActivity?.slice(0, 3), // Last 3 analyses
+        favoriteDataType: userAnalytics.stats.favoriteDataType,
+        averageAccuracy: userAnalytics.stats.averageAccuracy
+      } : null
+
+      const response = await geminiService.chatWithAI(chatInput, chatMessages, userContext)
       const aiMessage = { role: 'assistant', content: response.response }
       setChatMessages(prev => [...prev, aiMessage])
     } catch (error) {
@@ -100,12 +127,32 @@ const AITools = () => {
 
   const renderChatTab = () => (
     <div className="space-y-4">
+      {/* AI Context Panel */}
+      {userAnalytics && (
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+          <div className="flex items-center space-x-2 mb-2">
+            <Database className="w-4 h-4 text-blue-600" />
+            <h4 className="font-medium text-blue-900 dark:text-blue-100">AI Context Available</h4>
+          </div>
+          <p className="text-sm text-blue-700 dark:text-blue-300">
+            I can see your analysis history: {userAnalytics.stats.totalScans} analyses completed, 
+            {userAnalytics.recentActivity?.length > 0 
+              ? ` recent files: ${userAnalytics.recentActivity.slice(0, 3).map(a => a.fileName).join(', ')}`
+              : ' no recent activity'
+            }
+          </p>
+        </div>
+      )}
+
       {/* Chat Messages */}
       <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 h-96 overflow-y-auto">
         {chatMessages.length === 0 ? (
           <div className="text-center text-gray-500 dark:text-gray-400 mt-20">
             <Bot className="w-12 h-12 mx-auto mb-4 opacity-50" />
             <p>Start a conversation with your AI assistant!</p>
+            {userAnalytics?.stats.totalScans > 0 && (
+              <p className="text-sm mt-2">Try asking about your {userAnalytics.stats.totalScans} data analyses.</p>
+            )}
           </div>
         ) : (
           <div className="space-y-4">

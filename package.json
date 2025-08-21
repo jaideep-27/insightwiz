@@ -1,5 +1,5 @@
 {
-    "name": "insightwhiz",
+    "name": "insightwiz",
     "version": "1.0.0",
     "description": "AI-driven academic insights platform",
     "main": "index.js",
@@ -7,9 +7,9 @@
         "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\" \"npm run dev:ml\"",
         "dev:frontend": "cd frontend && npm run dev",
         "dev:backend": "cd backend && npm run dev",
-        "dev:ml": "cd ml-backend && python app.py",
-        "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install && cd ../ml-backend && python -m pip install -r requirements.txt",
-        "setup:python": "cd ml-backend && python -m pip install -r requirements.txt",
+        "dev:ml": "cd ml-backend && python3 app.py",
+        "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install && cd ../ml-backend && python3 -m pip install -r requirements.txt",
+        "setup:python": "cd ml-backend && python3 -m pip install -r requirements.txt",
         "build": "cd frontend && npm run build"
     },
     "keywords": [
@@ -18,7 +18,7 @@
         "education",
         "analytics"
     ],
-    "author": "InsightWhiz Team",
+    "author": "InsightWiz Team",
     "license": "MIT",
     "devDependencies": {
         "concurrently": "^8.2.2"

@@ -8,6 +8,8 @@ require('dotenv').config()
 const authRoutes = require('./routes/auth')
 const mlRoutes = require('./routes/ml')
 const geminiRoutes = require('./routes/gemini')
+const analyticsRoutes = require('./routes/analytics')
+const adminRoutes = require('./routes/admin')
 
 const app = express()
 
@@ -34,7 +36,7 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/insightwiz')
   .then(() => console.log('✅ Connected to MongoDB'))
   .catch(err => console.error('❌ MongoDB connection error:', err))
 
@@ -42,6 +44,8 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/auth', authRoutes)
 app.use('/api/ml', mlRoutes)
 app.use('/api/gemini', geminiRoutes)
+app.use('/api/analytics', analyticsRoutes)
+app.use('/api/admin', adminRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {

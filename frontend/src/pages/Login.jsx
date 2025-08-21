@@ -67,7 +67,7 @@ const Login = () => {
               <h2 className="text-4xl font-bold text-white">Welcome Back</h2>
             </div>
             <p className="text-gray-300 text-lg">
-              Sign in to your InsightWhiz account
+              Sign in to your InsightWiz account
             </p>
           </div>
 

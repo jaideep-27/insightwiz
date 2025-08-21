@@ -59,16 +59,27 @@ router.post('/register', async (req, res) => {
 // @access  Public
 router.post('/login', async (req, res) => {
   try {
+    console.log('Login request received:', req.body)
     const { email, password } = req.body
 
+    // Validate required fields
+    if (!email || !password) {
+      console.log('Missing email or password')
+      return res.status(400).json({ message: 'Email and password are required' })
+    }
+
     // Find user by email
+    console.log('Looking for user with email:', email)
     const user = await User.findOne({ email })
     if (!user) {
+      console.log('User not found')
       return res.status(400).json({ message: 'Invalid credentials' })
     }
 
+    console.log('User found:', user.email)
     // Check password
     const isMatch = await user.comparePassword(password)
+    console.log('Password match:', isMatch)
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' })
     }

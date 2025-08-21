@@ -5,10 +5,17 @@ const TestLogin = () => {
 
   const handleTestLogin = async () => {
     try {
-      // Create a test user
-      await login('test@insightwhiz.com', 'password123')
+      console.log('🧪 Starting test login...')
+      console.log('📧 Email: test@insightwiz.com')
+      console.log('🔐 Password: password123')
+      
+      const result = await login('test@insightwiz.com', 'password123')
+      console.log('✅ Test login successful!', result)
+      alert('✅ Test login successful!')
     } catch (error) {
-      console.error('Test login failed:', error)
+      console.error('❌ Test login failed:', error)
+      console.error('❌ Error details:', error.response?.data || error.message)
+      alert(`❌ Test login failed: ${error.response?.data?.error || error.message}`)
     }
   }
 

@@ -1,7 +1,7 @@
 {
-  "name": "insightwhiz-backend",
+  "name": "insightwiz-backend",
   "version": "1.0.0",
-  "description": "InsightWhiz Backend API",
+  "description": "InsightWiz Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -23,6 +23,6 @@
     "nodemon": "^3.0.2"
   },
   "keywords": ["api", "backend", "ai", "ml", "education"],
-  "author": "InsightWhiz Team",
+  "author": "InsightWiz Team",
   "license": "MIT"
 }
